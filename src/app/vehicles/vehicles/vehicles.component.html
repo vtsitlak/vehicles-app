@@ -1,1 +1,8 @@
-<p>vehicles works!</p>
+<div>
+    <app-filter-form [types]="types$ | async" [brands]="brands$ | async" [colors]="colors | async"
+        (updateFilter)="updateFilter($event)"></app-filter-form>
+    <mat-spinner *ngIf="loading$ | async" color="accent" diameter="180"></mat-spinner>
+    <div class="vehicles-list" *ngIf="!(loading$ | async)">
+        <app-vehicle-item *ngFor="let vehicle of filteredVehicles$ | async" [vehicle]="vehicle"></app-vehicle-item>
+    </div>
+</div>
