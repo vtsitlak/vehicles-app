@@ -1,1 +1,23 @@
-<p>vehicle-item works!</p>
+<mat-grid-list *ngIf="vehicle" cols="2" class="vehicle-item mat-elevation-z10" rowHeight="180px" gutterSize="20px"
+    role="list">
+
+    <mat-grid-tile>
+        <div class="description">
+            <h3>{{vehicle.brand}}</h3>
+            <h4>{{vehicle.type}}</h4>
+            <p>
+                <span *ngFor="let c of vehicle.colors; let last = last">{{ c }} <span [ngStyle]="{'color': c}">#</span>
+                <span *ngIf="!last">, </span>
+            </span>
+            </p>
+        </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+        <div class="image">
+            <img [src]="vehicle.img" alt="image of vehicle"
+                onError="this.src='assets/images/image-not-found-scaled-1150x647.png'">
+        </div>
+    </mat-grid-tile>
+
+</mat-grid-list>
