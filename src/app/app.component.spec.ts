@@ -1,35 +1,46 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { routes } from './app-routing.module';
 
 describe('AppComponent', () => {
+
+  let location: Location;
+  let router: Router;
+  let fixture;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes(routes),
+        MatToolbarModule,
       ],
       declarations: [
         AppComponent
       ],
     }).compileComponents();
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
+    fixture = TestBed.createComponent(AppComponent);
+    router.initialNavigation();
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'vehicles-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it(`should have as title 'Vehicles application'`, () => {
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('vehicles-app');
+    expect(app.title).toEqual('Vehicles application');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('vehicles-app app is running!');
-  });
+  it('navigate to "" redirects you to /vehicles', fakeAsync(() => {
+    router.navigate(['']);
+    tick();
+    expect(location.path()).toBe('/vehicles');
+  }));
 });
