@@ -2,6 +2,21 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 
+## Description 
+A Demo app that displays a list of vehicles filtered by type, brand and color that can be selected from dropdown menu.
+The filter values and the list of vehicles updated dynamically.
+This app can be used as an example of using Angular, Typescript, Angular Material, HttpClient, RxJS, SCSS and ts-node 
+
+## Setup
+
+* Ensure you have a recent version of Node and NPM installed.
+* Install Angular CLI `npm i -g angular-cli@latest`
+* Install Typescript `npm i -g typescript`
+* Install TSLint `npm install -g tslint`
+* Install Protractor for e2e testing `npm install -g protractor`
+* Install Node packages `npm i`
+* Run local build `ng serve`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
