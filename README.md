@@ -17,6 +17,14 @@ This app can be used as an example of using Angular, Typescript, Angular Materia
 * Install Node packages `npm i`
 * Run local build `ng serve`
 
+# To Run the Development Backend Server
+
+We can start the sample application backend with the following command:
+
+    `npm run server`
+
+This is a small Node REST API server.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
