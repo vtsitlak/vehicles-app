@@ -3,11 +3,11 @@ import { VEHICLES } from './db-data';
 
 export function getVehicles(req: Request, res: Response) {
 
-  console.log('Retrieving courses data ...');
+  console.log('Retrieving vehicles data ...');
 
   setTimeout(() => {
 
-    res.status(200).json({ payload: Object.values(VEHICLES) });
+    res.status(200).json(Object.values(VEHICLES));
 
   }, 1000);
 

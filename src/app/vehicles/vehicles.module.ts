@@ -10,6 +10,7 @@ import { VehiclesService } from './services/vehicles.service';
 import { VehiclesRoutingModule } from './vehicles-routing.module';
 import { FilterFormComponent } from './vehicles/filter-form/filter-form.component';
 import { VehicleItemComponent } from './vehicles/vehicle-item/vehicle-item.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [VehiclesComponent, FilterFormComponent, VehicleItemComponent],
@@ -22,6 +23,7 @@ import { VehicleItemComponent } from './vehicles/vehicle-item/vehicle-item.compo
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [VehiclesService]
 })

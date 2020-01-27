@@ -31,7 +31,7 @@ describe('VehiclesService', () => {
 
   it('should get vehicles', () => {
     // Make an HTTP GET request
-    httpClient.get<Vehicle[]>('api/vehicles')
+    httpClient.get<Vehicle[]>('/api/vehicles')
       .subscribe(data =>
         // When observable resolves, result should match test data
         expect(data).toEqual(mockVehicles)
@@ -40,7 +40,7 @@ describe('VehiclesService', () => {
     // The following `expectOne()` will match the request's URL.
     // If no requests or multiple requests matched that URL
     // `expectOne()` would throw.
-    const req = httpTestingController.expectOne('api/vehicles');
+    const req = httpTestingController.expectOne('/api/vehicles');
 
     // Assert that the request is a GET.
     expect(req.request.method).toEqual('GET');

@@ -14,9 +14,9 @@ export class VehiclesService {
   ) { }
 
   getVehicles(): Observable<Vehicle[]> | any {
-    return this.http.get(`api/vehicles`)
+    return this.http.get(`/api/vehicles`)
       .pipe(
-        map((notes: Vehicle[]) => notes),
+        map((vehicles: Vehicle[]) => vehicles),
         catchError(this.handleError),
       );
   }
