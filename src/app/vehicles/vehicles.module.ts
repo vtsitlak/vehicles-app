@@ -10,21 +10,14 @@ import { VehiclesService } from './services/vehicles.service';
 import { VehiclesRoutingModule } from './vehicles-routing.module';
 import { FilterFormComponent } from './vehicles/filter-form/filter-form.component';
 import { VehicleItemComponent } from './vehicles/vehicle-item/vehicle-item.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
-@NgModule({
-  declarations: [VehiclesComponent, FilterFormComponent, VehicleItemComponent],
-  imports: [
-    CommonModule,
-    VehiclesRoutingModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule,
-    MatGridListModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
-  providers: [VehiclesService]
-})
+@NgModule({ declarations: [VehiclesComponent, FilterFormComponent, VehicleItemComponent], imports: [CommonModule,
+        VehiclesRoutingModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
+        MatGridListModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule], providers: [VehiclesService, provideHttpClient(withInterceptorsFromDi())] })
 export class VehiclesModule { }
