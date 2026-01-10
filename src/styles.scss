@@ -1,55 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles and Material theming */
 @use '@angular/material' as mat;
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-// Include non-theme styles for core.
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+/* Core styles for Material (MDC-based components) */
+@include mat.core();
 
-// custom color theme (generated from http://mcg.mbitson.com/)
-$md-mcgpalette0: (50 : #fcf2e7,
-  100 : #f8dec3,
-  200 : #f3c89c,
-  300 : #eeb274,
-  400 : #eaa256,
-  500 : #e69138,
-  600 : #e38932,
-  700 : #df7e2b,
-  800 : #db7424,
-  900 : #d56217,
-  A100 : #ffffff,
-  A200 : #ffe3d4,
-  A400 : #ffc3a1,
-  A700 : #ffb287,
-  contrast: (50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #000000,
-    400 : #000000,
-    500 : #000000,
-    600 : #000000,
-    700 : #000000,
-    800 : #000000,
-    900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
-  ));
+/* Define a simple light theme using built-in palettes (MDC) */
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$indigo-palette,
+    tertiary: mat.$blue-palette,
+  ),
+));
 
-// Define a theme.
-$primary: mat.m2-define-palette($md-mcgpalette0);
-$accent: mat.m2-define-palette(mat.$m2-light-blue-palette, 600, 300, 600);
-
-$theme: mat.m2-define-light-theme($primary, $accent);
-
-// Include all theme styles for the components.
-@include mat.all-legacy-component-themes($theme);
+/* Apply the theme to all components */
+@include mat.all-component-themes($theme);
