@@ -3,9 +3,10 @@ import { UntypedFormBuilder } from '@angular/forms';
 import { Filter } from '../../models/filter';
 
 @Component({
-  selector: 'app-filter-form',
-  templateUrl: './filter-form.component.html',
-  styleUrls: ['./filter-form.component.scss']
+    selector: 'app-filter-form',
+    templateUrl: './filter-form.component.html',
+    styleUrls: ['./filter-form.component.scss'],
+    standalone: false
 })
 export class FilterFormComponent implements OnInit, OnChanges {
 

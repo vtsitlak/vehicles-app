@@ -7,9 +7,10 @@ import { Filter } from '../models/filter';
 import { distinctUntilChanged, tap, filter, mergeMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-vehicles',
-  templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.scss']
+    selector: 'app-vehicles',
+    templateUrl: './vehicles.component.html',
+    styleUrls: ['./vehicles.component.scss'],
+    standalone: false
 })
 export class VehiclesComponent implements OnInit {
 
