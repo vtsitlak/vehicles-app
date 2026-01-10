@@ -47,10 +47,10 @@ $md-mcgpalette0: (50 : #fcf2e7,
   ));
 
 // Define a theme.
-$primary: mat.define-palette($md-mcgpalette0);
-$accent: mat.define-palette(mat.$light-blue-palette, 600, 300, 600);
+$primary: mat.m2-define-palette($md-mcgpalette0);
+$accent: mat.m2-define-palette(mat.$m2-light-blue-palette, 600, 300, 600);
 
-$theme: mat.define-light-theme($primary, $accent);
+$theme: mat.m2-define-light-theme($primary, $accent);
 
 // Include all theme styles for the components.
 @include mat.all-legacy-component-themes($theme);
