@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vehicles-app:build"
+            "buildTarget": "vehicles-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "vehicles-app:build:production"
+              "buildTarget": "vehicles-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vehicles-app:build"
+            "buildTarget": "vehicles-app:build"
           }
         },
         "test": {
