@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { VehicleItemComponent } from './vehicle-item.component';
 import { DebugElement } from '@angular/core';
@@ -17,7 +17,7 @@ describe('VehicleItemComponent', () => {
     colors: ['silver']
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatGridListModule],
       declarations: [VehicleItemComponent]

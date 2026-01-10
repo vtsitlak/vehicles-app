@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { FilterFormComponent } from './filter-form.component';
@@ -8,7 +8,7 @@ describe('FilterFormComponent', () => {
   let component: FilterFormComponent;
   let fixture: ComponentFixture<FilterFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule, FormsModule, ReactiveFormsModule, MatSelectModule],
       declarations: [FilterFormComponent]

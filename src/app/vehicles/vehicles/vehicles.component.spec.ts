@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { VehiclesComponent } from './vehicles.component';
@@ -19,7 +19,7 @@ describe('VehiclesComponent', () => {
     color: '',
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const bed = TestBed.configureTestingModule({
       imports: [MatProgressSpinnerModule, MatSnackBarModule],
       declarations: [VehiclesComponent],
