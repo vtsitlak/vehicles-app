@@ -1,5 +1,5 @@
 <div>
-  <app-filter-form [types]="types$ | async" [brands]="brands$ | async" [colors]="colors | async"
+  <app-filter-form [types]="types$ | async" [brands]="brands$ | async" [colors]="colors$ | async"
   (updateFilter)="updateFilter($event)"></app-filter-form>
   @if (loading$ | async) {
     <mat-spinner color="accent" diameter="180"></mat-spinner>
