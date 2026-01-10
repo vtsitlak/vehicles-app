@@ -1,12 +1,16 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Filter } from '../../models/filter';
 
 @Component({
     selector: 'app-filter-form',
     templateUrl: './filter-form.component.html',
     styleUrls: ['./filter-form.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule]
 })
 export class FilterFormComponent implements OnInit, OnChanges {
 

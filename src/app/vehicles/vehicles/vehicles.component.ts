@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { CommonModule } from '@angular/common';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { VehiclesService } from '../services/vehicles.service';
 import { Vehicle } from '../models/vehicle';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { Filter } from '../models/filter';
 import { distinctUntilChanged, tap, filter, mergeMap } from 'rxjs/operators';
+import { FilterFormComponent } from './filter-form/filter-form.component';
+import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
 
 @Component({
     selector: 'app-vehicles',
     templateUrl: './vehicles.component.html',
     styleUrls: ['./vehicles.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, MatProgressSpinnerModule, MatSnackBarModule, FilterFormComponent, VehicleItemComponent]
 })
 export class VehiclesComponent implements OnInit {
 

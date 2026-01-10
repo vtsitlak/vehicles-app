@@ -9,7 +9,10 @@ app.use(bodyParser.json());
 app.route('/api/vehicles').get(getVehicles);
 
 const httpServer = app.listen(9000, () => {
-    console.log('HTTP REST API Server running at http://localhost:' + httpServer.address().port);
+    const addr = httpServer.address();
+    // address() can return a string (pipe/UNIX socket) or AddressInfo; guard accordingly
+    const port = typeof addr === 'string' ? addr : addr?.port;
+    console.log(`HTTP REST API Server running at http://localhost:${port}`);
 });
 
 
