@@ -10,7 +10,7 @@ $theme: mat.define-theme((
   color: (
     theme-type: light,
     primary: mat.$blue-palette,
-    tertiary: mat.$pink-palette,
+    tertiary: mat.$blue-palette, // reuse built-in palette available in the current API
   ),
 ));
 
