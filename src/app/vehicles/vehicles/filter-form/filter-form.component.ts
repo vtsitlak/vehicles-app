@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Filter } from '../../models/filter';
 
 @Component({
@@ -16,7 +16,7 @@ export class FilterFormComponent implements OnInit, OnChanges {
   @Output() updateFilter: EventEmitter<Filter> = new EventEmitter<Filter>();
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
   ) {
     this.filtersForm = this.formBuilder.group({
       type: '',
