@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@use '~@angular/material' as mat;
 @import "~@angular/material/theming";
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 // Include non-theme styles for core.
-@include mat-core();
+@include mat.core();
 
 // custom color theme (generated from http://mcg.mbitson.com/)
 $md-mcgpalette0: (50 : #fcf2e7,
@@ -37,10 +38,10 @@ $md-mcgpalette0: (50 : #fcf2e7,
   ));
 
 // Define a theme.
-$primary: mat-palette($md-mcgpalette0);
-$accent: mat-palette($mat-light-blue, 600, 300, 600);
+$primary: mat.define-palette($md-mcgpalette0);
+$accent: mat.define-palette(mat.$light-blue-palette, 600, 300, 600);
 
-$theme: mat-light-theme($primary, $accent);
+$theme: mat.define-light-theme($primary, $accent);
 
 // Include all theme styles for the components.
-@include angular-material-theme($theme);
+@include mat.all-component-themes($theme);
