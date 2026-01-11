@@ -1,8 +1,8 @@
-<form [formGroup]="filtersForm" class="mat-elevation-z10">
+<form class="mat-elevation-z10">
   <mat-form-field>
-    <mat-select formControlName="type" placeholder="Vehicle type">
+    <mat-select [field]="filterForm.type" placeholder="Vehicle type">
       <mat-option value="">-- All types --</mat-option>
-      @for (t of types; track t) {
+      @for (t of (types() ?? []); track t) {
         <mat-option [value]="t">
           {{ t }}
         </mat-option>
@@ -10,9 +10,9 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select formControlName="brand" placeholder="Vehicle brand">
+    <mat-select [field]="filterForm.brand" placeholder="Vehicle brand">
       <mat-option value="">-- All brands --</mat-option>
-      @for (b of brands; track b) {
+      @for (b of (brands() ?? []); track b) {
         <mat-option [value]="b">
           {{ b }}
         </mat-option>
@@ -20,9 +20,9 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select formControlName="color" placeholder="Vehicle color">
+    <mat-select [field]="filterForm.color" placeholder="Vehicle color">
       <mat-option value="">-- All colors --</mat-option>
-      @for (c of colors; track c) {
+      @for (c of (colors() ?? []); track c) {
         <mat-option [value]="c">
           {{ c }} <span [ngStyle]="{'color': c}">#</span>
         </mat-option>
