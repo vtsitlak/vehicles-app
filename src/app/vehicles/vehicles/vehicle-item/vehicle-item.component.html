@@ -1,12 +1,12 @@
-@if (vehicle) {
+@if (vehicle()) {
   <mat-grid-list cols="2" class="vehicle-item mat-elevation-z10" rowHeight="180px" gutterSize="20px"
     role="list">
     <mat-grid-tile>
       <div class="description">
-        <h3>{{vehicle.brand}}</h3>
-        <h4>{{vehicle.type}}</h4>
+        <h3>{{vehicle().brand}}</h3>
+        <h4>{{vehicle().type}}</h4>
         <p>
-          @for (c of vehicle.colors; track c; let last = $last) {
+          @for (c of vehicle().colors; track c; let last = $last) {
             <span>{{ c }} <span [ngStyle]="{'color': c}">#</span>
             @if (!last) {
               <span>, </span>
@@ -18,7 +18,7 @@
   </mat-grid-tile>
   <mat-grid-tile>
     <div class="image">
-      <img [src]="vehicle.img" alt="image of vehicle"
+      <img [src]="vehicle().img" alt="image of vehicle"
         onError="this.src='assets/images/image-not-found-scaled-1150x647.png'">
       </div>
     </mat-grid-tile>

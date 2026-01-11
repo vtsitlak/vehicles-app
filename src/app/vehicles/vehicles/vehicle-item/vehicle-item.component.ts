@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../models/vehicle';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -11,5 +11,5 @@ import { MatGridListModule } from '@angular/material/grid-list';
 })
 export class VehicleItemComponent {
 
-  @Input() vehicle: Vehicle;
+  vehicle = input.required<Vehicle>();
 }

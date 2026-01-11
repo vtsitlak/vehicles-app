@@ -1,12 +1,12 @@
 <div>
-  <app-filter-form [types]="types$ | async" [brands]="brands$ | async" [colors]="colors$ | async"
+  <app-filter-form [types]="types()" [brands]="brands()" [colors]="colors()"
   (updateFilter)="updateFilter($event)"></app-filter-form>
-  @if (loading$ | async) {
+  @if (loading()) {
     <mat-spinner color="accent" diameter="180"></mat-spinner>
   }
-  @if (!(loading$ | async)) {
+  @if (!loading()) {
     <div class="vehicles-list">
-      @for (vehicle of filteredVehicles$ | async; track vehicle) {
+      @for (vehicle of filteredVehicles(); track vehicle) {
         <app-vehicle-item [vehicle]="vehicle"></app-vehicle-item>
       }
     </div>
