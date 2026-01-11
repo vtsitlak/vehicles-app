@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,15 +14,14 @@ import { Filter } from '../../models/filter';
 })
 export class FilterFormComponent implements OnInit, OnChanges {
 
+  private formBuilder = inject(UntypedFormBuilder);
   filtersForm;
   @Input() types: string[];
   @Input() brands: string[];
   @Input() colors: string[];
   @Output() updateFilter: EventEmitter<Filter> = new EventEmitter<Filter>();
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-  ) {
+  constructor() {
     this.filtersForm = this.formBuilder.group({
       type: '',
       brand: '',

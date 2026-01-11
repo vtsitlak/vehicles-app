@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,6 +18,8 @@ import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
     imports: [CommonModule, MatProgressSpinnerModule, MatSnackBarModule, FilterFormComponent, VehicleItemComponent]
 })
 export class VehiclesComponent implements OnInit {
+  private vehiclesService = inject(VehiclesService);
+  private snackBar = inject(MatSnackBar);
 
   private filteredVehicles: BehaviorSubject<Vehicle[]> = new BehaviorSubject(undefined);
   private loading: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -71,11 +73,6 @@ export class VehiclesComponent implements OnInit {
       this.updateColors(vehicles);
     }),
   );
-
-  constructor(
-    private vehiclesService: VehiclesService,
-    private snackBar: MatSnackBar,
-  ) { }
 
   ngOnInit() {
     // load data from service
