@@ -1,12 +1,31 @@
-import * as express from 'express';
-import { Application } from 'express';
-import { getVehicles } from './get-vehicles.route';
+import express, { Application } from 'express';
+import { getAll, getByFilter } from './get-vehicles.route';
 
 const bodyParser = require('body-parser');
 const app: Application = express();
 
+// Enable CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
 app.use(bodyParser.json());
-app.route('/api/vehicles').get(getVehicles);
+
+// Log all requests
+app.use('/api/vehicles', (req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+app.get('/api/vehicles', (req, res) => getAll(res));
+app.post('/api/vehicles', getByFilter);
 
 const httpServer = app.listen(9000, () => {
     const addr = httpServer.address();

@@ -1,8 +1,7 @@
-import { Component, OnInit, inject, signal, effect, computed } from '@angular/core';
+import { Component, OnInit, inject, effect } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { VehiclesService } from '../services/vehicles.service';
-import { Vehicle } from '../models/vehicle';
+import { VehiclesFacade } from '../store/vehicles.facade';
 import { Filter } from '../models/filter';
 import { FilterFormComponent } from './filter-form/filter-form.component';
 import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
@@ -14,79 +13,36 @@ import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
     imports: [MatProgressSpinnerModule, MatSnackBarModule, FilterFormComponent, VehicleItemComponent]
 })
 export class VehiclesComponent implements OnInit {
-  private vehiclesService = inject(VehiclesService);
+  facade = inject(VehiclesFacade);
   private snackBar = inject(MatSnackBar);
 
-  private vehicles = signal<Vehicle[] | undefined>(undefined);
-  loading = signal(true);
-  private filterValues = signal<Filter>({ type: '', color: '', brand: '' });
-
-  filteredVehicles = computed(() => {
-    const vehicles = this.vehicles();
-    const filter = this.filterValues();
-    if (!vehicles) return [];
-
-    return vehicles.filter(v =>
-      (v.brand === filter.brand || filter.brand === '') &&
-      (v.type === filter.type || filter.type === '') &&
-      (v.colors.indexOf(filter.color) > -1 || filter.color === '')
-    );
-  });
-
-  types = computed(() => {
-    const vehicles = this.filteredVehicles();
-    const typesSet = new Set<string>();
-    vehicles.forEach(v => typesSet.add(v.type));
-    return Array.from(typesSet);
-  });
-
-  brands = computed(() => {
-    const vehicles = this.filteredVehicles();
-    const brandsSet = new Set<string>();
-    vehicles.forEach(v => brandsSet.add(v.brand));
-    return Array.from(brandsSet);
-  });
-
-  colors = computed(() => {
-    const vehicles = this.filteredVehicles();
-    const colorsSet = new Set<string>();
-    vehicles.forEach(v => v.colors.forEach(c => colorsSet.add(c)));
-    return Array.from(colorsSet);
-  });
+  // Expose facade signals for template
+  filteredVehicles = this.facade.filteredVehicles;
+  loading = this.facade.loading;
+  types = this.facade.types;
+  brands = this.facade.brands;
+  colors = this.facade.colors;
 
   constructor() {
-    // Set loading to false when all data is available
+    // Show error snackbar when error occurs
     effect(() => {
-      const vehicles = this.vehicles();
-      const filtered = this.filteredVehicles();
-      const types = this.types();
-      const brands = this.brands();
-      const colors = this.colors();
-
-      if (this.loading() && vehicles && filtered.length >= 0 && types.length >= 0 && brands.length >= 0 && colors.length >= 0) {
-        this.loading.set(false);
+      const error = this.facade.error();
+      if (error) {
+        console.error(error);
+        this.openSnackBar(error, 'reload');
+        this.facade.clearError();
       }
     });
   }
 
   ngOnInit() {
-    // load data from service
-    this.vehiclesService.getVehicles()
-      .subscribe(
-        (data) => {
-          this.vehicles.set(data);
-        },
-        (err) => {
-          console.error(err);
-          this.loading.set(false);
-          this.openSnackBar(err, 'reload');
-        }
-      );
+    // Load all vehicles initially (for dropdown options)
+    this.facade.loadAll();
   }
 
-  // update the filterValues with the value emitted from the form
+  // update the filter with the value emitted from the form and load filtered vehicles
   updateFilter(filterValues: Filter) {
-    this.filterValues.set(filterValues);
+    this.facade.loadByFilter(filterValues);
   }
 
   openSnackBar(message: string, action: string) {

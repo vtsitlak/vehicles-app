@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Vehicle } from '../models/vehicle';
+import { Filter } from '../models/filter';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -10,8 +11,16 @@ import { map, catchError } from 'rxjs/operators';
 export class VehiclesService {
   private http = inject(HttpClient);
 
-  getVehicles(): Observable<Vehicle[]> | any {
+  getAll(): Observable<Vehicle[]> | any {
     return this.http.get(`/api/vehicles`)
+      .pipe(
+        map((vehicles: Vehicle[]) => vehicles),
+        catchError(this.handleError),
+      );
+  }
+
+  getByFilter(filter: Filter): Observable<Vehicle[]> | any {
+    return this.http.post(`/api/vehicles`, filter)
       .pipe(
         map((vehicles: Vehicle[]) => vehicles),
         catchError(this.handleError),
@@ -24,6 +33,6 @@ export class VehiclesService {
       console.error('An error occurred:', error.error.message);
     }
     // return an observable with a user-facing error message
-    return throwError(error);
+    return throwError(() => new Error(error.error.message));
   }
 }

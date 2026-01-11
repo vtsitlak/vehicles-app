@@ -92,14 +92,14 @@ describe('VehiclesService', () => {
 //   expect(service).toBeTruthy();
 // });
 
-// // describe('#getVehicles', () => {
+// // describe('#getAll', () => {
 // it('should return an Observable<Vehicle[]>', () => {
 //   const vehiclesMock: Vehicle[] = [
 //     { id: 1, type: 'car', brand: 'citroen', img: '1.jpg', colors: ['black', 'silver'] },
 //     { id: 2, type: 'train', brand: 'train-brand', img: '2.jpg', colors: ['black', 'red'] },
 //   ];
 
-//   service.getVehicles().subscribe(vehicles => {
+//   service.getAll().subscribe(vehicles => {
 //     expect(vehicles.length).toBe(2);
 //     expect(vehicles).toEqual(vehiclesMock);
 //   });
