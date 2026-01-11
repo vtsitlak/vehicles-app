@@ -7,7 +7,7 @@
         <h4>{{vehicle().type}}</h4>
         <p>
           @for (c of vehicle().colors; track c; let last = $last) {
-            <span>{{ c }} <span [ngStyle]="{'color': c}">#</span>
+            <span>{{ c }} <span [style.color]="c">#</span>
             @if (!last) {
               <span>, </span>
             }

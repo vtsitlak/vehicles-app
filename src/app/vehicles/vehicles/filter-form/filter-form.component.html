@@ -24,7 +24,7 @@
       <mat-option value="">-- All colors --</mat-option>
       @for (c of (colors() ?? []); track c) {
         <mat-option [value]="c">
-          {{ c }} <span [ngStyle]="{'color': c}">#</span>
+          {{ c }} <span [style.color]="c">#</span>
         </mat-option>
       }
     </mat-select>
