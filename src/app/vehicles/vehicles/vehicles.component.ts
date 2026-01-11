@@ -14,7 +14,6 @@ import { VehicleItemComponent } from './vehicle-item/vehicle-item.component';
     selector: 'app-vehicles',
     templateUrl: './vehicles.component.html',
     styleUrls: ['./vehicles.component.scss'],
-    standalone: true,
     imports: [CommonModule, MatProgressSpinnerModule, MatSnackBarModule, FilterFormComponent, VehicleItemComponent]
 })
 export class VehiclesComponent implements OnInit {

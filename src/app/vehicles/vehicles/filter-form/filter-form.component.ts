@@ -9,7 +9,6 @@ import { Filter } from '../../models/filter';
     selector: 'app-filter-form',
     templateUrl: './filter-form.component.html',
     styleUrls: ['./filter-form.component.scss'],
-    standalone: true,
     imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule]
 })
 export class FilterFormComponent implements OnInit, OnChanges {

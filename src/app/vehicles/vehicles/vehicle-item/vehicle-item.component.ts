@@ -7,7 +7,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
     selector: 'app-vehicle-item',
     templateUrl: './vehicle-item.component.html',
     styleUrls: ['./vehicle-item.component.scss'],
-    standalone: true,
     imports: [CommonModule, MatGridListModule]
 })
 export class VehicleItemComponent {
