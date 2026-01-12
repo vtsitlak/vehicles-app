@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { Vehicle } from '../../models/vehicle';
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -11,4 +11,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 export class VehicleItemComponent {
 
   vehicle = input.required<Vehicle>();
+
+  brand =  computed(() => this.vehicle().brand);
+  type =  computed(() => this.vehicle().type);
+  colors =  computed(() => this.vehicle().colors);
+  img =  computed(() => this.vehicle().img);
 }
