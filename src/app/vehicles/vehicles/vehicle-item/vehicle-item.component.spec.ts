@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { VehicleItemComponent } from './vehicle-item.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Vehicle } from '../../models/vehicle';
 
 describe('VehicleItemComponent', () => {
   let component: VehicleItemComponent;
   let fixture: ComponentFixture<VehicleItemComponent>;
   let element: DebugElement;
 
-  const vehicle = {
+  const vehicle: Vehicle = {
     id: 1,
     brand: 'Citroen',
     type: 'car',
@@ -19,8 +19,7 @@ describe('VehicleItemComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatGridListModule],
-      declarations: [VehicleItemComponent]
+      imports: [VehicleItemComponent]
     })
       .compileComponents();
   }));
@@ -28,9 +27,9 @@ describe('VehicleItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(VehicleItemComponent);
     element = fixture.debugElement.nativeElement;
-    component = fixture.debugElement.componentInstance;
     component = fixture.componentInstance;
-    component.vehicle = vehicle;
+    // Set input signal using setInput
+    fixture.componentRef.setInput('vehicle', vehicle);
     fixture.detectChanges();
   });
 

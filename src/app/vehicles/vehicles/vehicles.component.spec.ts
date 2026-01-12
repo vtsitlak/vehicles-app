@@ -1,38 +1,43 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { VehiclesComponent } from './vehicles.component';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { VehiclesFacade } from '../store/vehicles.facade';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { signal } from '@angular/core';
 import { Vehicle } from '../models/vehicle';
 import { Filter } from '../models/filter';
-import { VehiclesService } from '../services/vehicles.service';
-import { VehiclesServiceStub } from 'src/testing/vehicles.service-stub';
 
 describe('VehiclesComponent', () => {
   let component: VehiclesComponent;
   let fixture: ComponentFixture<VehiclesComponent>;
-  let vehiclesServices: VehiclesService;
+  let facade: VehiclesFacade;
 
-  const filterValues: Filter = {
-    type: 'car',
-    brand: '',
-    color: '',
-  };
+  const mockVehicles: Vehicle[] = [
+    { id: 1, type: 'car', brand: 'Bugatti Veyron', img: '1.jpg', colors: ['red', 'black'] },
+    { id: 2, type: 'airplane', brand: 'Boeing 787', img: '2.jpg', colors: ['red', 'white'] },
+  ];
 
   beforeEach(waitForAsync(() => {
-    const bed = TestBed.configureTestingModule({
-      imports: [MatProgressSpinnerModule, MatSnackBarModule],
-      declarations: [VehiclesComponent],
+    TestBed.configureTestingModule({
+      imports: [VehiclesComponent],
       providers: [
-        { provide: VehiclesService, useClass: VehiclesServiceStub },
-      ],
-      schemas: [
-        CUSTOM_ELEMENTS_SCHEMA,
-        NO_ERRORS_SCHEMA
+        provideAnimations(),
+        {
+          provide: VehiclesFacade,
+          useValue: {
+            filteredVehicles: signal<Vehicle[]>(mockVehicles),
+            loading: signal(false),
+            error: signal<string | null>(null),
+            types: signal<string[]>(['car', 'airplane']),
+            brands: signal<string[]>(['Bugatti Veyron', 'Boeing 787']),
+            colors: signal<string[]>(['red', 'black', 'white']),
+            loadAll: jasmine.createSpy('loadAll'),
+            loadByFilter: jasmine.createSpy('loadByFilter'),
+            clearError: jasmine.createSpy('clearError'),
+          }
+        }
       ]
-    });
-    bed.compileComponents();
-    vehiclesServices = bed.get(VehiclesService);
+    }).compileComponents();
+    facade = TestBed.inject(VehiclesFacade);
   }));
 
   beforeEach(() => {
@@ -45,32 +50,27 @@ describe('VehiclesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get the vehicles from service', fakeAsync(() => {
-    component.filteredVehicles$.subscribe(f => expect(f.length).toBe(6));
-  }));
+  it('should load all vehicles on init', () => {
+    component.ngOnInit();
+    expect(facade.loadAll).toHaveBeenCalled();
+  });
 
-  it('updateFilter method should update filterValues', fakeAsync(() => {
-    component.updateFilter(filterValues);
-    component.filterValues$.subscribe(f => expect(f).toBe(filterValues));
-  }));
+  it('should call loadByFilter when updateFilter is called', () => {
+    const filter: Filter = { type: 'car', brand: '', color: '' };
+    component.updateFilter(filter);
+    expect(facade.loadByFilter).toHaveBeenCalledWith(filter);
+  });
 
-  it('changing of filteredvalues should update filteredVehicles', fakeAsync(() => {
-    component.updateFilter(filterValues);
-    component.filteredVehicles$.subscribe(f => expect(f.length).toBe(1));
-  }));
+  it('should expose facade signals', () => {
+    expect(component.filteredVehicles).toBeDefined();
+    expect(component.loading).toBeDefined();
+    expect(component.types).toBeDefined();
+    expect(component.brands).toBeDefined();
+    expect(component.colors).toBeDefined();
+  });
 
-  it('should update table types', fakeAsync(() => {
-    component.updateFilter(filterValues);
-    component.types$.subscribe(t => expect(t).toEqual(['car']));
-  }));
-
-  it('should update table brands', fakeAsync(() => {
-    component.updateFilter(filterValues);
-    component.brands$.subscribe(b => expect(b).toEqual(['Bugatti Veyron']));
-  }));
-
-  it('should update table colors', fakeAsync(() => {
-    component.updateFilter(filterValues);
-    component.colors$.subscribe(c => expect(c).toEqual(['red', 'black']));
-  }));
+  it('should display filtered vehicles', () => {
+    expect(component.filteredVehicles().length).toBe(2);
+    expect(component.filteredVehicles()[0].type).toBe('car');
+  });
 });

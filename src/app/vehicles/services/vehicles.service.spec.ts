@@ -54,6 +54,21 @@ describe('VehiclesService', () => {
     httpTestingController.verify();
   });
 
+  it('should get vehicles by filter', () => {
+    const filter = { type: 'car', brand: '', color: '' };
+    const filteredVehicles = [mockVehicles[0]];
+
+    service.getByFilter(filter).subscribe(data =>
+      expect(data).toEqual(filteredVehicles)
+    );
+
+    const req = httpTestingController.expectOne('/api/vehicles');
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(filter);
+    req.flush(filteredVehicles);
+    httpTestingController.verify();
+  });
+
   it('can test for network error', () => {
     const emsg = 'simulated network error';
 
