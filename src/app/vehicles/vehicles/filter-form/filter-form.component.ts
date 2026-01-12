@@ -21,7 +21,12 @@ export class FilterFormComponent {
 
   constructor() {
     effect(() => {
-      this.updateFilter.emit(this.filterForm().value());
+      // Only track actual field values, not form state
+      this.updateFilter.emit({
+        type: this.filterForm.type().value(),
+        brand: this.filterForm.brand().value(),
+        color: this.filterForm.color().value(),
+      });
     });
   }
 }
