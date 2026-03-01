@@ -44,8 +44,12 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
+    "rollup": "^4.59.0",
     "ts-node": "^7.0.1",
     "tslint": "~6.1.0",
     "typescript": "~5.9.3"
+  },
+  "overrides": {
+    "rollup": "^4.59.0"
   }
 }
