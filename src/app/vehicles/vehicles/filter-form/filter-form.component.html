@@ -1,6 +1,6 @@
 <form class="mat-elevation-z10">
   <mat-form-field>
-    <mat-select [field]="filterForm.type" placeholder="Vehicle type">
+    <mat-select [formField]="filterForm.type" placeholder="Vehicle type">
       <mat-option value="">-- All types --</mat-option>
       @for (t of (types() ?? []); track t) {
         <mat-option [value]="t">
@@ -10,7 +10,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select [field]="filterForm.brand" placeholder="Vehicle brand">
+    <mat-select [formField]="filterForm.brand" placeholder="Vehicle brand">
       <mat-option value="">-- All brands --</mat-option>
       @for (b of (brands() ?? []); track b) {
         <mat-option [value]="b">
@@ -20,7 +20,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-select [field]="filterForm.color" placeholder="Vehicle color">
+    <mat-select [formField]="filterForm.color" placeholder="Vehicle color">
       <mat-option value="">-- All colors --</mat-option>
       @for (c of (colors() ?? []); track c) {
         <mat-option [value]="c">

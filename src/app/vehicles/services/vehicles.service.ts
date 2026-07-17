@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Vehicle } from '../models/vehicle';
 import { Filter } from '../models/filter';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,28 +11,22 @@ import { map, catchError } from 'rxjs/operators';
 export class VehiclesService {
   private http = inject(HttpClient);
 
-  getAll(): Observable<Vehicle[]> | any {
-    return this.http.get(`/api/vehicles`)
-      .pipe(
-        map((vehicles: Vehicle[]) => vehicles),
-        catchError(this.handleError),
-      );
+  getAll(): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(`/api/vehicles`).pipe(
+      catchError(this.handleError),
+    );
   }
 
-  getByFilter(filter: Filter): Observable<Vehicle[]> | any {
-    return this.http.post(`/api/vehicles`, filter)
-      .pipe(
-        map((vehicles: Vehicle[]) => vehicles),
-        catchError(this.handleError),
-      );
+  getByFilter(filter: Filter): Observable<Vehicle[]> {
+    return this.http.post<Vehicle[]>(`/api/vehicles`, filter).pipe(
+      catchError(this.handleError),
+    );
   }
 
-  private handleError(error: HttpErrorResponse): any {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
     }
-    // return an observable with a user-facing error message
     return throwError(() => new Error(error.error.message));
   }
 }

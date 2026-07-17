@@ -1,31 +1,38 @@
 # VehiclesApp
 
-A modern Angular application demonstrating vehicle filtering capabilities using Angular 21, Signals, Signal Forms, and NgRx SignalStore.
+A modern Angular application demonstrating vehicle filtering with **Angular 22**, Signals, Signal Forms, and NgRx SignalStore.
 
-## Description 
+## Description
 
 A demo application that displays a list of vehicles filtered by type, brand, and color. Filter values can be selected from dropdown menus, and both the filter options and vehicle list update dynamically based on server-side filtering.
 
 This app showcases modern Angular development patterns including:
-- **Angular 21** with standalone components
+
+- **Angular 22** with standalone components
 - **Angular Signals** for reactive state management
-- **Signal Forms** for form handling
+- **Signal Forms** (`form()` / `FormField`) for form handling
 - **NgRx SignalStore** for centralized state management
-- **Angular Material** (MDC-based components)
+- **Angular Material 22** (MDC-based components)
+- **OnPush** change detection (Angular 22 default; set explicitly on components)
+- **Fetch-based HttpClient** (Angular 22 default)
 - **Express.js** backend API with TypeScript
 - **RxJS** for reactive programming
 - **SCSS** for styling
+- **Playwright** for end-to-end tests
 
 ## Architecture
 
 ### Frontend
+
 - **Standalone Components**: All components are standalone (no NgModules)
 - **Signal-Based State**: Uses Angular Signals and computed signals for reactive data flow
-- **Signal Forms**: Form handling using Angular's experimental Signal Forms API
+- **Signal Forms**: Form handling using Angular's Signal Forms API (`[formField]`)
 - **NgRx SignalStore**: Centralized state management with `VehiclesStore` and `VehiclesFacade`
-- **Dependency Injection**: Uses `inject()` function for modern DI patterns
+- **Dependency Injection**: Uses `inject()` for modern DI patterns
+- **Change Detection**: `ChangeDetectionStrategy.OnPush` on all components
 
 ### Backend
+
 - **Express.js** REST API server
 - **TypeScript** for type safety
 - **Server-side filtering** via POST endpoint
@@ -33,27 +40,47 @@ This app showcases modern Angular development patterns including:
 
 ## Prerequisites
 
-* Node.js **20.19.x** or **22.12+** (LTS versions recommended)
-* npm **8.0.0** or higher
+Angular 22 requires one of:
+
+- **Node.js v22.22.3+**
+- **Node.js v24.15.0+**
+- **Node.js v26.0.0+**
+
+Node.js 20 is no longer supported. Check your version:
+
+```bash
+node -v
+```
+
+Also required:
+
+- **npm** 8.0.0 or higher
 
 ## Setup
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
-2. **Start the backend server:**
+2. **Start the backend server** (leave this terminal open):
+
    ```bash
    npm run server
    ```
-   The API server will run on `http://localhost:9000`
 
-3. **Start the development server:**
+   The API runs at `http://localhost:9000`.
+
+3. **Start the development server** (second terminal):
+
    ```bash
    npm start
    ```
-   Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+   Open `http://localhost:4200/`. The app reloads when you change source files.
+
+> **Note:** Both processes must run together. `npm start` only serves the Angular app; the API is separate. The frontend proxies `/api` to port `9000` via `proxy.json`.
 
 ## Project Structure
 
@@ -78,18 +105,23 @@ src/app/vehicles/
 ## Key Features
 
 ### Signal Forms
+
 The `FilterFormComponent` uses Angular's Signal Forms API:
-- Form state managed with `form()` function
-- Field bindings using `[field]` directive
-- Reactive updates without traditional form controls
+
+- Form state managed with `form()`
+- Field bindings using `[formField]` and `FormField`
+- Reactive updates without classic reactive form controls
 
 ### SignalStore Pattern
+
 State management follows the SignalStore pattern:
+
 - **VehiclesStore**: Centralized store with state, computed signals, and methods
 - **VehiclesFacade**: Clean API layer for components
 - Reactive updates using signals and `rxMethod` for async operations
 
 ### Server-Side Filtering
+
 - **GET `/api/vehicles`**: Retrieves all vehicles
 - **POST `/api/vehicles`**: Retrieves filtered vehicles based on request body
 
@@ -97,30 +129,57 @@ State management follows the SignalStore pattern:
 
 ### Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum`.
+```bash
+npx ng generate component component-name
+```
+
+You can also generate `directive|pipe|service|class|guard|interface|enum`.
 
 ### Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--configuration production` flag for a production build.
+```bash
+npm run build
+```
+
+Artifacts are written to `dist/`. Use `--configuration production` for a production build.
 
 ### Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm test
+```
+
+Or headless (CI-style):
+
+```bash
+npx ng test --watch=false --browsers=ChromeHeadless
+```
+
+Unit tests run with **Karma** + Jasmine.
 
 ### Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests.
+E2E tests use **Playwright** (Protractor was removed in Angular 22):
+
+```bash
+npm run e2e
+```
+
+Playwright starts (or reuses) the API on `:9000` and the app on `:4200` automatically.
 
 ## Technologies Used
 
-- **Angular**: 21.0.8
-- **Angular Material**: 21.0.6 (MDC-based)
-- **NgRx Signals**: Latest
-- **RxJS**: 7.8.2
-- **TypeScript**: 5.9.3
-- **Express.js**: Latest
-- **Node.js**: 20.19.x / 22.12+
+| Technology | Version |
+|------------|---------|
+| Angular | 22.0.x |
+| Angular Material / CDK | 22.0.x |
+| TypeScript | 6.0.x |
+| NgRx Signals | 21.x (peer-compatible with Angular 22) |
+| RxJS | 7.8.x |
+| Express.js | 4.22.x |
+| Playwright | Latest |
+| Node.js | 22.22.3+ / 24.15.0+ / 26+ |
 
 ## Further Help
 
-To get more help on the Angular CLI use `ng help` or check out the [Angular CLI documentation](https://angular.dev/tools/cli).
+For Angular CLI help, run `npx ng help` or see the [Angular CLI documentation](https://angular.dev/tools/cli).

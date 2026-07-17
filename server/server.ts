@@ -3,8 +3,8 @@ import { getAll, getByFilter } from './get-vehicles.route';
 
 const bodyParser = require('body-parser');
 const app: Application = express();
+const PORT = 9000;
 
-// Enable CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -18,7 +18,6 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-// Log all requests
 app.use('/api/vehicles', (req, res, next) => {
   console.log(`${req.method} ${req.path}`);
   next();
@@ -27,13 +26,16 @@ app.use('/api/vehicles', (req, res, next) => {
 app.get('/api/vehicles', (req, res) => getAll(res));
 app.post('/api/vehicles', getByFilter);
 
-const httpServer = app.listen(9000, () => {
-    const addr = httpServer.address();
-    // address() can return a string (pipe/UNIX socket) or AddressInfo; guard accordingly
-    const port = typeof addr === 'string' ? addr : addr?.port;
-    console.log(`HTTP REST API Server running at http://localhost:${port}`);
+const httpServer = app.listen(PORT, () => {
+  console.log(`HTTP REST API Server running at http://localhost:${PORT}`);
+  console.log('Keep this terminal open while using the app.');
 });
 
-
-
-
+httpServer.on('error', (err: NodeJS.ErrnoException) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Stop the other process, then run npm run server again.`);
+  } else {
+    console.error(err);
+  }
+  process.exit(1);
+});

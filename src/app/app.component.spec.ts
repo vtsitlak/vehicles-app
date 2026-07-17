@@ -1,4 +1,4 @@
-import { TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { AppComponent } from './app.component';
 import { Location } from '@angular/common';
@@ -10,7 +10,7 @@ describe('AppComponent', () => {
 
   let location: Location;
   let router: Router;
-  let fixture;
+  let fixture: ComponentFixture<AppComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
